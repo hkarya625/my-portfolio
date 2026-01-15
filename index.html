@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         * {
             margin: 0;
@@ -261,109 +264,180 @@
             margin-right: auto;
         }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+        .skills-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
-        .skill-card {
-            background: rgba(255, 255, 255, 0.03);
+        .category-section {
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
             padding: 2.5rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            cursor: pointer;
         }
 
-        .skill-card::before {
+        .category-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.03));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .category-section:hover::before {
+            opacity: 1;
+        }
+
+        .category-section:hover {
+            border-color: rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.1);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .category-section:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tech-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 0.8rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ffffff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-badge::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.05), transparent);
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
             transition: left 0.6s ease;
         }
 
-        .skill-card:hover::before {
+        .tech-badge:hover::before {
             left: 100%;
         }
 
-        .skill-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: rgba(102, 126, 234, 0.3);
-            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.15);
-            background: rgba(255, 255, 255, 0.05);
+        .tech-badge:hover {
+            transform: translateY(-3px) scale(1.05);
+            border-color: rgba(102, 126, 234, 0.4);
+            background: rgba(102, 126, 234, 0.1);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
         }
 
-        .skill-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            border-radius: 20px;
+        .tech-badge img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: brightness(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        .tech-badge:hover img {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .highlight-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .cp-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cp-stat-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: rgba(102, 126, 234, 0.1);
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
             transition: all 0.3s ease;
         }
 
-        .skill-icon img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            filter: brightness(1.2);
+        .cp-stat-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
 
-        .skill-card:hover .skill-icon {
-            transform: scale(1.1);
-            background: rgba(102, 126, 234, 0.2);
-        }
-
-        .skill-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
+        .cp-platform {
+            font-size: 1rem;
+            font-weight: 600;
             color: #ffffff;
-            font-weight: 700;
         }
 
-        .skill-card p {
-            color: #b0b0b0;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        .skill-level {
-            margin-top: 1.5rem;
-            text-align: left;
-        }
-
-        .skill-level-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
+        .cp-rating {
             font-size: 0.9rem;
+            color: #667eea;
+            font-weight: 500;
         }
 
-        .skill-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 3px;
-            transition: width 2s ease-out;
+        .cp-description {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 0.5rem;
         }
 
         /* Projects Section */
@@ -664,6 +738,151 @@
             animation: float-particle 10s linear infinite;
         }
 
+
+
+
+        .skills-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .skill-column {
+            min-height: 220px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+
+
+            align-items: center;
+
+        }
+
+        .skill-column:hover {
+            border-color: rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .skill-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .skill-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: 10px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .skill-list li img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .skill-list li:hover {
+            background: rgba(102, 126, 234, 0.15);
+            transform: translateX(4px);
+        }
+
+        .skill-column.highlight {
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+        }
+
+        .skill-list .muted {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+        }
+
+
+
+        .skill-icons {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 56px);
+            gap: 1rem;
+
+            justify-content: center;
+            /* ⭐ centers single or multiple icons */
+            margin-top: 50px;
+        }
+
+
+
+
+        .skill-icons li {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .skill-icons li:hover {
+            transform: translateY(-4px) scale(1.08);
+            background: rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-icons img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: brightness(1.2);
+        }
+
+        /* Tooltip */
+        .skill-icons li::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -34px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .skill-icons li:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(4px);
+        }
+
+
+
+
         @keyframes float-particle {
             0% {
                 transform: translateY(100vh) translateX(0px);
@@ -701,8 +920,7 @@
                 font-size: 1.2rem;
             }
 
-            .projects-grid,
-            .skills-grid {
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -718,6 +936,30 @@
             .section-title {
                 font-size: 2.5rem;
             }
+
+            .category-section {
+                padding: 1.5rem;
+            }
+
+            .category-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .category-title {
+                font-size: 1.4rem;
+            }
+
+            .tech-badge {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .tech-badge img {
+                width: 20px;
+                height: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -728,6 +970,10 @@
             .container {
                 padding: 0 15px;
             }
+        }
+
+        .skill-icons {
+            grid-template-columns: repeat(3, 1fr);
         }
     </style>
 </head>
@@ -778,187 +1024,99 @@
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title">Skills & Technologies</h2>
-            <p class="section-subtitle">Expertise across the entire mobile development ecosystem, from frontend to
-                backend and everything in between</p>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.png" alt="Kotlin">
-                    </div>
-                    <h3>Kotlin</h3>
-                    <p>Modern, expressive language for Android development with 100% Java interoperability, null safety,
-                        and powerful coroutines for asynchronous programming.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%;"></div>
-                        </div>
-                    </div>
+            <p class="section-subtitle">Hands-on experience working with a wide range of technologies, focusing on
+                building efficient, scalable, and user-friendly solutions.</p>
+            <div class="skills-row">
+
+                <!-- Languages -->
+                <div class="skill-column">
+                    <h3 class="skill-title">Languages</h3>
+                    <ul class="skill-icons">
+                        <li title="Kotlin">
+                            <img
+                                src="https://user-images.githubusercontent.com/103866722/177941491-1947c6b0-6e38-4880-8bd7-01dac36165df.png">
+                        </li>
+                        <li title="Java">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/960px-Java_programming_language_logo.svg.png">
+                        </li>
+                        <li title="C++">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg">
+                        </li>
+                    </ul>
                 </div>
 
+                <!-- Mobile -->
+                <div class="skill-column">
+                    <h3 class="skill-title">Mobile</h3>
+                    <ul class="skill-icons">
+                        <li title="Android SDK">
+                            <img src="https://developer.android.com/static/images/brand/android-head_flat.png">
+                        </li>
+                        <li title="Jetpack Compose">
+                            <img src="https://developer.android.com/images/logos/jetpack-compose.svg">
+                        </li>
+                        <li title="Android Studio">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Android_Studio_icon_%282023%29.svg/250px-Android_Studio_icon_%282023%29.svg.png">
+                        </li>
 
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
-                            alt="C++">
-                    </div>
-                    <h3>C++</h3>
-                    <p>High-performance native development for Android NDK, system-level programming, and
-                        performance-critical applications with optimal efficiency.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>95%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 78%;"></div>
-                        </div>
-                    </div>
+                    </ul>
                 </div>
 
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://cdn.iconscout.com/icon/free/png-256/free-code-forces-logo-icon-download-in-svg-png-gif-file-formats--technology-social-media-vol-2-pack-logos-icons-2944796.png?f=webp&w=256"
-                            alt="C++ Competitive Programming">
-                    </div>
-                    <h3>Competitive Programming</h3>
-                    <p>Experience solving algorithmic problems using C++ with STL, recursion, dynamic programming, and
-                        graph theory. Regular participant in contests on platforms like Codeforces.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Codeforces Rating</span>
-                            <span>1000</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 50%;"></div>
-                        </div>
-                    </div>
+                <!-- Backend -->
+                <div class="skill-column">
+                    <h3 class="skill-title">Backend</h3>
+                    <ul class="skill-icons">
+                        <li title="Spring Boot">
+                            <img src="https://cdn.worldvectorlogo.com/logos/spring-3.svg">
+                        </li>
+                        <li title="grpc">
+                            <img src="https://grpc.io/img/logos/grpc-logo.png">
+                        </li>
+                        <li title="Kafka">
+                            <img src="https://openwhisk.apache.org/images/icons/icon-kafka-white-trans.png">
+                        </li>
+                    </ul>
                 </div>
 
-
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://developer.android.com/static/images/brand/android-head_flat.png"
-                            alt="Android Development">
-                    </div>
-                    <h3>Android Development</h3>
-                    <p>Proficient in building modern, responsive Android applications using Kotlin, Jetpack libraries,
-                        and Material Design with a strong focus on performance and usability.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%;"></div>
-                        </div>
-                    </div>
+                <!-- Databases -->
+                <div class="skill-column">
+                    <h3 class="skill-title">Databases</h3>
+                    <ul class="skill-icons">
+                        <li title="PostgreSQL">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg">
+                        </li>
+                        <li title="SQLite">
+                            <img
+                                src="https://cdn.prod.website-files.com/61ddd0b42c51f89b7de1e910/667f2d98856e323d92d5c7cb_667f2b52e7524d84e7615bd9_1200px-Sqlite-square-icon.svg.png">
+                        </li>
+                    </ul>
                 </div>
 
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjC97Z8BResg5dlPqczsRCFhP6zewWX0X0e7fVPG-G7PuUZwwZVsi9OPoqJYkgqT2h0FI95SsmWzVEgpt8b8HAqFiIxZ98TFtY4lE0b8UrtVJ2HrJebRwl6C9DslsQDl9KnBIrdHS6LtkY/s1600/jetpack+compose+icon_RGB.png"
-                            alt="Jetpack Compose">
-                    </div>
-                    <h3>Jetpack Compose</h3>
-                    <p>Android's modern declarative UI toolkit for building native interfaces with less code, powerful
-                        tools, and intuitive Kotlin APIs.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%;"></div>
-                        </div>
-                    </div>
+                <!-- Tools & AI -->
+                <div class="skill-column">
+                    <h3 class="skill-title">Tools</h3>
+                    <ul class="skill-icons">
+                        <li title="TensorFlow Lite">
+                            <img src="https://miro.medium.com/1*OECT3cWormqy76Eb_M4o_Q.png">
+                        </li>
+                        <li title="Docker">
+                            <img
+                                src="https://i0.wp.com/blog.kmsigma.com/wp-content/uploads/2025/07/docker-mark-blue-scaled.png?fit=2560%2C2021&ssl=1">
+                        </li>
+                        <li title="Firebase">
+                            <img
+                                src="https://images.seeklogo.com/logo-png/61/3/firebase-icon-logo-png_seeklogo-615938.png">
+                        </li>
+                    </ul>
                 </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://insert-koin.io/img/koin_new_logo.png" alt="Koin DI">
-                        <!-- You can replace this icon with a better one if desired -->
-                    </div>
-                    <h3>Koin DI</h3>
-                    <p>Lightweight dependency injection framework for Kotlin, designed to be pragmatic, easy to use, and
-                        fully integrated with Android and Kotlin apps.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 88%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://img.icons8.com/?size=512&id=90519&format=png" alt="Spring Boot">
-                    </div>
-                    <h3>Spring Boot</h3>
-                    <p>Production-ready backend framework with embedded servers, security, metrics, and health checks
-                        for building robust enterprise applications.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtQumHnpFMwppHBTkHJlIhEOkFPumg9ZAtVw&s"
-                            alt="MongoDB">
-                    </div>
-                    <h3>MongoDB</h3>
-                    <p>NoSQL database for modern applications with flexible document model, powerful aggregation
-                        framework, and horizontal scaling capabilities.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/Ktor_icon.png"
-                            alt="Ktor">
-                    </div>
-                    <h3>Ktor</h3>
-                    <p>Asynchronous Kotlin framework for creating microservices, web applications, and HTTP clients with
-                        coroutines support and multiplatform capabilities.</p>
-                    <div class="skill-level">
-                        <div class="skill-level-label">
-                            <span>Proficiency</span>
-                            <span>82%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 82%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </section>
+
+
+
 
     <section class="stats">
         <div class="container">
@@ -979,13 +1137,54 @@
         </div>
     </section>
 
-
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <p class="section-subtitle">A showcase of innovative mobile applications that demonstrate technical
                 excellence and user-focused design</p>
             <div class="projects-grid">
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem;">
+                            🏥</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Patient Management System</h3>
+                        <p>Built a production-ready patient management platform using microservices
+                            architecture. Implemented secure authentication, role-based access control, service-specific
+                            databases, API gateway. Focused on scalability, fault tolerance, and
+                            real-world healthcare data security.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/960px-Java_programming_language_logo.svg.png"
+                                    alt="Java">
+                                Java
+                            </span>
+                            <span class="tech-tag">
+                                <img src="https://cdn.worldvectorlogo.com/logos/spring-3.svg" alt="Spring Boot">
+                                Spring Boot
+                            </span>
+                            <span class="tech-tag">
+                                <img src="https://openwhisk.apache.org/images/icons/icon-kafka-white-trans.png"
+                                    alt="Kafka">
+                                Kafka
+                            </span>
+                            <span class="tech-tag">
+                                <img src="https://i0.wp.com/blog.kmsigma.com/wp-content/uploads/2025/07/docker-mark-blue-scaled.png?fit=2560%2C2021&ssl=1"
+                                    alt="docker">
+                                docker
+                            </span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://ik.imagekit.io/sqjmtpu26/FarmAi_Demo_video.mp4?updatedAt=1749972497425"
+                                class="project-link primary">Live Demo</a>
+                            <a href="https://github.com/user1/FarmAi" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="project-card">
                     <div class="project-image">
                         <div
@@ -993,7 +1192,7 @@
                             🌱</div>
                     </div>
                     <div class="project-content">
-                        <h3> FarmAi - Your Smart Farming Assistant</h3>
+                        <h3>FarmAi - Your Smart Farming Assistant</h3>
                         <p>FarmAi is an intelligent Android application designed to empower farmers by providing quick
                             and accessible agricultural support through modern AI technologies. The app enables farmers
                             to resolve crop-related queries through text-based assistance and also offers real-time
@@ -1021,11 +1220,51 @@
                             </span>
                         </div>
                         <div class="project-links">
-                            <a href="https://ik.imagekit.io/sqjmtpu26/FarmAi_Demo_video.mp4?updatedAt=1749972497425" class="project-link primary">Live Demo</a>
-                            <a href="https://github.com/hkarya625/FarmAi" class="project-link">GitHub</a>
+                            <a href="https://ik.imagekit.io/sqjmtpu26/FarmAi_Demo_video.mp4?updatedAt=1749972497425"
+                                class="project-link primary">Live Demo</a>
+                            <a href="https://github.com/user1/FarmAi" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
+
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem;">
+                            👨🏻‍⚕️</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Doctor Appointment App</h3>
+                        <p>Developed a production-ready Android application for booking and managing doctor appointments
+                            using Firebase as the backend. Implemented secure authentication, real-time scheduling with
+                            Firestore and a clean Material Design UI following modern
+                            Android architecture.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.png"
+                                    alt="Kotlin">
+                                Kotlin
+                            </span>
+                            <span class="tech-tag">
+                                <img src="https://developer.android.com/images/logos/jetpack-compose.svg"
+                                    alt="Jetpack Compose">
+                                Jetpack Compose
+                            </span>
+                            <span class="tech-tag">
+                                <img src="https://images.seeklogo.com/logo-png/61/3/firebase-icon-logo-png_seeklogo-615938.png"
+                                    alt="Firebase">
+                                Firebase
+                            </span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://ik.imagekit.io/sqjmtpu26/FarmAi_Demo_video.mp4?updatedAt=1749972497425"
+                                class="project-link primary">Live Demo</a>
+                            <a href="https://github.com/user1/FarmAi" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="project-card">
                     <div class="project-image">
@@ -1055,21 +1294,15 @@
                                 Ktor (HTTP Client)
                             </span>
                             <span class="tech-tag">
-                                <img src="https://kotzilla.io/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fstrapi_cms_gcp%2Fkoin_396c65e7f9%2Fkoin_396c65e7f9.png&w=3840&q=75"
+                                <img src="https://insert-koin.io/img/koin_new_logo.png"
                                     alt="Koin">
                                 Koin
-                            </span>
-                            <span class="tech-tag">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE8luHMhZ2AFhykjAgeP9SUJNJn5MvUeqlzg&s"
-                                    alt="Clean_Architecture">
-                                Clean Architecture
                             </span>
                         </div>
                         <div class="project-links">
                             <a href="https://ik.imagekit.io/zgqm2s7uc/e-commerce_app_demo.mp4?updatedAt=1745834559963"
                                 class="project-link primary">Live Demo</a>
-                            <a href="https://github.com/hkarya625/E-Commerce_App/tree/main"
-                                class="project-link">GitHub</a>
+                            <a href="https://github.com/user1/E-Commerce_App/tree/main" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -1083,9 +1316,9 @@
                     <div class="project-content">
                         <h3>MoneyMonitor - A Expense Tracker App</h3>
                         <p>MoneyMonitor is a simple yet powerful Android application designed to help users take control
-                            of their personal finances. With a clean and intuitive interface, ExpenseMate makes it
-                            effortless to record, manage, and visualize your income and expenses, all stored locally on
-                            your device for speed, privacy, and offline acces</p>
+                            of their personal finances. With a clean and intuitive interface, it makes it effortless to
+                            record, manage, and visualize your income and expenses, all stored locally on your device
+                            for speed, privacy, and offline access.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.png"
@@ -1111,7 +1344,7 @@
                         <div class="project-links">
                             <a href="https://ik.imagekit.io/zgqm2s7uc/expense_traker_demo.mp4?updatedAt=1745841357423"
                                 class="project-link primary">Live Demo</a>
-                            <a href="https://github.com/hkarya625/Expense_tracker" class="project-link">GitHub</a>
+                            <a href="https://github.com/user1/Expense_tracker" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -1126,9 +1359,7 @@
                         <h3>NoteTake – A Backend App for Note Taking</h3>
                         <p>NoteTake is a simple and efficient backend service designed for note-taking applications.
                             Built with scalability and developer usability in mind, it provides RESTful API endpoints
-                            for creating, reading, updating, and deleting notes. Ideal for integrating into web or
-                            mobile note-taking apps, NoteTake handles the backend logic so developers can focus on
-                            building great user experiences.</p>
+                            for creating, reading, updating, and deleting notes.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.png"
@@ -1148,12 +1379,11 @@
                                 <img src="https://cdn.worldvectorlogo.com/logos/jwt-3.svg" alt="JwtAuth">
                                 JWT Auth
                             </span>
-
                         </div>
                         <div class="project-links">
-                            <a href="https://ik.imagekit.io/zgqm2s7uc/expense_traker_demo.mp4?updatedAt=1745841357423"
-                                class="project-link primary">Live Demo</a>
-                            <a href="https://github.com/hkarya625/Note-Taking" class="project-link">GitHub</a>
+                            <a href="https://github.com/user1/Note-Taking" class="project-link primary">View
+                                Code</a>
+                            <a href="https://github.com/user1/Note-Taking" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -1166,23 +1396,21 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <h2>Let's Create Something Amazing</h2>
-                    <p>Ready to bring your next mobile app idea to life? I'm passionate about building innovative
-                        solutions that make a real difference. Let's discuss how we can work together to create
-                        exceptional user experiences.</p>
-
+                    <p>Have an idea, a project, or just want to connect? I’m always open to discussing new
+                        opportunities, creative ideas, or ways to bring your vision to life..</p>
                     <div class="contact-methods">
                         <div class="contact-method">
                             <div class="contact-method-icon">📧</div>
                             <div>
                                 <h4>Email</h4>
-                                <p>contact.himanshuarya462@gmail.com</p>
+                                <p>hkarya625@gmail.com</p>
                             </div>
                         </div>
                         <div class="contact-method">
                             <div class="contact-method-icon">📍</div>
                             <div>
                                 <h4>Location</h4>
-                                <p>Sitarganj, Uttarkhand</p>
+                                <p>Uttarakhand </p>
                             </div>
                         </div>
                     </div>
@@ -1213,24 +1441,32 @@
 
     <footer
         style="background: rgba(0, 0, 0, 0.3); padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+
         <div class="container">
-            <p style="color: #a0a0a0; margin-bottom: 1rem;">&copy; 2025 Himanshu Arya. All rights reserved.</p>
+            <p style="color: #a0a0a0; margin-bottom: 1rem;">
+                &copy; 2026 Himanshu Arya. All rights reserved.
+            </p>
+
             <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                <a href="https://www.linkedin.com/in/himanshu-arya-4105b5267/"
-                    style="color: #667eea; text-decoration: none; transition: color 0.3s ease;">LinkedIn</a>
-                <a href="https://github.com/hkarya625"
-                    style="color: #667eea; text-decoration: none; transition: color 0.3s ease;">GitHub</a>
-                <a href="https://codeforces.com/profile/himanshukarya625"
-                    style="color: #667eea; text-decoration: none; transition: color 0.3s ease;">CodeForces</a>
-                <a href="https://medium.com/@himanshukarya625"
-                    style="color: #667eea; text-decoration: none; transition: color 0.3s ease;">Medium</a>
+
+                <a href="https://www.linkedin.com/in/himanshu-arya-4105b5267/" style="color: #667eea; font-size: 1.5rem;">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+
+                <a href="https://github.com/hkarya625" style="color: #667eea; font-size: 1.5rem;">
+                    <i class="fab fa-github"></i>
+                </a>
+
+                <a href="mailto:hkarya625@gmail.com" style="color: #667eea; font-size: 1.5rem;">
+                    <i class="fas fa-envelope"></i>
+                </a>
 
             </div>
         </div>
     </footer>
 
+
     <script>
-        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -1240,7 +1476,6 @@
             }
         });
 
-        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1254,7 +1489,6 @@
             });
         });
 
-        // Animate elements on scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1266,15 +1500,6 @@
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
 
-                    // Animate skill progress bars
-                    if (entry.target.classList.contains('skill-card')) {
-                        const progressBar = entry.target.querySelector('.skill-progress');
-                        if (progressBar) {
-                            progressBar.style.width = progressBar.style.width || '0%';
-                        }
-                    }
-
-                    // Animate stats
                     if (entry.target.classList.contains('stat-item')) {
                         const number = entry.target.querySelector('.stat-number');
                         const finalNumber = number.textContent;
@@ -1284,22 +1509,15 @@
             });
         }, observerOptions);
 
-        // Observe elements for animation
-        document.querySelectorAll('.skill-card, .project-card, .stat-item').forEach(element => {
+        document.querySelectorAll('.category-section, .project-card, .stat-item').forEach(element => {
             element.style.opacity = '0';
             element.style.transform = 'translateY(30px)';
             element.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             observer.observe(element);
         });
 
-        // Number animation function
         function animateNumber(element, finalNumber) {
             const isPercentage = finalNumber.includes('%');
-            const isPlusSign = finalNumber.includes('+');
-            const isSlash = finalNumber.includes('/');
-
-            if (isSlash) return; // Skip animation for "24/7"
-
             const numericValue = parseInt(finalNumber.replace(/[^\d]/g, ''));
             let currentNumber = 0;
             const increment = numericValue / 50;
@@ -1309,76 +1527,27 @@
                     currentNumber = numericValue;
                     clearInterval(timer);
                 }
-
                 let displayNumber = Math.floor(currentNumber);
-                if (isPlusSign) displayNumber += '+';
                 if (isPercentage) displayNumber += '%';
-
                 element.textContent = displayNumber;
             }, 30);
         }
 
-        // Form submission with enhanced validation
         document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-
-            // Show loading state
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
             submitButton.textContent = 'Sending...';
             submitButton.disabled = true;
 
-            // Simulate form submission
             setTimeout(() => {
-                // Reset button
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
-
-                // Show success message
                 alert('🎉 Thank you for your message! I\'ll get back to you within 24 hours.');
                 this.reset();
             }, 2000);
         });
 
-        // Add typing effect to hero subtitle
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.textContent = '';
-            function type() {
-                if (i < text.length) {
-                    element.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
-        }
-
-        // Initialize typing effect when page loads
-        window.addEventListener('load', () => {
-            const subtitle = document.querySelector('.hero .subtitle');
-            const originalText = subtitle.textContent;
-            setTimeout(() => {
-                typeWriter(subtitle, originalText, 50);
-            }, 1000);
-        });
-
-        // Add hover effects to project cards
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Create floating particles dynamically
         function createParticle() {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -1387,13 +1556,11 @@
             particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
             document.querySelector('.particles').appendChild(particle);
 
-            // Remove particle after animation
             setTimeout(() => {
                 particle.remove();
             }, 20000);
         }
 
-        // Create particles periodically
         setInterval(createParticle, 3000);
     </script>
 </body>
